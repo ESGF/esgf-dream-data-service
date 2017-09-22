@@ -10,6 +10,10 @@ from data_roots import convert_path
 
 app = Flask(__name__)
 
+@app.route('/test', methods=['GET'])
+def test():
+    response = make_response("<h1>ESGF DREAM DATA SERVICE</h1>")    
+    return (response)
 
 @app.route('/', methods=['GET'])
 def feedback_srv():
