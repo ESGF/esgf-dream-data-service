@@ -1,12 +1,13 @@
 from flask import Flask, request, abort, make_response
 from time import sleep
+
 #from json import loads
 import os
 
 
 from mime_types import get_mime
 from convert_path import convert_path
-
+from proc import proc_json
 
 app = Flask(__name__)
 
@@ -22,6 +23,7 @@ def feedback_srv(path):
         return (response)                                                #
 
     urlpath = path
+
     # Use ESGF configured roots mappings - same as THREDDS
     phys_path = convert_path(urlpath) 
 
@@ -45,8 +47,15 @@ def feedback_srv(path):
         response = make_response("Error opening file on server: " + str(e), 500)
         return (response)
 
-    response = make_response(resp_file.read())
     mime = get_mime(phys_path)
+
+    if request.args.get('action') != '':
+        
+        return(make_response(proc_json(resp_file, request.args))
+ 
+   
+    response = make_response(resp_file.read())
+
     if len(mime) > 0:
         response.headers['Content-Type'] = mime
 

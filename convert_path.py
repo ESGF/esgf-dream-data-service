@@ -1,7 +1,7 @@
 # For now use a hardcoded test dictionary
 # TODO: convert to use esg.ini setting
 
-ESGF_ROOTS = { "esgf_data": "/esg/data"}
+ESGF_ROOTS = { "esgf_data": "/esg/data", "user_pub_work": "/p/user_pub/work"}
 
 
 
