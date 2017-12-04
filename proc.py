@@ -1,4 +1,4 @@
-from json import load
+from json import load, dumps
 
 def proc_json(f, args):
 
@@ -6,46 +6,46 @@ def proc_json(f, args):
 
 	qlens = args.get('querylen')
 
-	if len(qlens) > 0:
+	if (not qlens is None) and  len(qlens) > 0:
 
 		qleni = int(qlens)
 
 		for i in range(1, qleni+1):
 
-			qq = args.get(query + str(i))
+			qq = args.get('query' + str(i))
 
 			objnew = None
 			if type(obj) is dict:
 				if qq in obj:
 					objnew = obj[qq]
 				else:
-					raise BasicException("NotFound")
+					raise BaseException("NotFound")
 			elif type(obj) is list:
 				idx = int(qq)
 				if idx < len(obj):
 					objnew = obj[idx]
 				else:
-					raise BasicException("OutOfBounds")
+					raise BaseException("OutOfBounds")
 			else:
-				raise BasicException("TypeError")
+				raise BaseException("TypeError")
 			if objnew is None:
-				raise BasicException("FailToAssign")
+				raise BaseException("FailToAssign")
 			obj = objnew
 
 	if args.get('action') == "type":
 
 		if type(obj) is dict:
 			return "dict"
-		elif  type(obj) is list:
+		elif type(obj) is list:
 			return "list"
 		else:
 			return "scalar"
 	elif args.get('action') == "query":
-		return obj
+		return dumps(obj)
 	elif args.get('action') == "len":
-		return len(obj)
+		return str(len(obj))
 	elif args.get('action') == "keys":
-		return obj.keys() # assume exception gets caught for now
+		return dumps(obj.keys()) # assume exception gets caught for now
 	
 
 	return None

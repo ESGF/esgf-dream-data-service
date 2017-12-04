@@ -1,6 +1,7 @@
 from flask import Flask, request, abort, make_response
 from time import sleep
 
+
 #from json import loads
 import os
 
@@ -59,11 +60,11 @@ def feedback_srv(path):
         
         try:
             jobj = proc_json(resp_file, arrggs)
-        except BasicException:
-            abort(400)
+        except BaseException as e:
+            return(make_response("Bad Request querying JSON: " + str(e), 400))
 
         if jobj is None:
-            abort(400)
+            return(make_response("Bad Request querying JSON", 400))
 
         return(make_response(jobj))
  
