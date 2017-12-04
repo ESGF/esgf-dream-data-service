@@ -49,16 +49,28 @@ def feedback_srv(path):
 
     mime = get_mime(phys_path)
 
-    if request.args.get('action') != '':
+    arrggs = request.args
+
+
+    # TODO - better error handling passed back
+
+    # if not json
+    if arrggs.get('action') != '':
         
-        return(make_response(proc_json(resp_file, request.args))
+        try:
+            jobj = proc_json(resp_file, arrggs)
+        except BasicException:
+            abort(400)
+
+        if jobj is None:
+            abort(400)
+
+        return(make_response(jobj))
  
-   
     response = make_response(resp_file.read())
 
     if len(mime) > 0:
         response.headers['Content-Type'] = mime
-
 
     return (response)
 
