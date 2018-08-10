@@ -38,3 +38,5 @@ def index_data(ka, va):
 		fdict[k] = v
 	return fdict
 
+
+import sys
