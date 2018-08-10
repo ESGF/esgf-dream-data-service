@@ -2,7 +2,11 @@ from json import load, dumps
 
 def proc_json(f, args):
 
-	obj = load(f)
+	if (type(f) is file):
+
+		obj = load(f)
+
+	if 
 
 	qlens = args.get('querylen')
 
@@ -51,6 +55,11 @@ def proc_json(f, args):
 	return None
 
 
+def proc_fasta(f, args):
 
+	if args('do_index') == 'true':
 
+		parse_fasta(f)
 
+	if args.get('action') == "len":
+		return str()
