@@ -1,28 +1,29 @@
 import sys, time
 
-from proc_fasta import *
+from parse_fasta import *
 
 index = False
 
-for arg in sys.args[1:]:
+for arg in sys.argv[1:]:
 
+    with open(arg) as f:
 	print "processing ", arg, " indexing ", index
 	if index:
 		sttime = time.time()
-		d, h, s = parse_fasta(arg , index)
+		d = parse_fasta(f , index)
 		endtime = time.time()
-		print endtime
+		print endtime - sttime
 		
 	else:
 		sttime = time.time()
-		h, s = parse_fasta(arg , index)
+		h, s = parse_fasta(f , index)
 		endtime = time.time()
-		print endtime
+		print endtime - sttime
 		print "index phase"
 		sttime = time.time()
-		index_data(h, s)
+		d = index_data(h, s)
 		endtime = time.time()
-		print endtime
+		print endtime - sttime
 
-	index = not index
-
+        index = not index
+        sys.stdout.flush()

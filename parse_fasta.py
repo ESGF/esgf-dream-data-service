@@ -7,20 +7,24 @@ def parse_fasta(f, index=False):
 
 	fdict = {}
 
+	assert (type(f) == file)
 	for line in f:
 
 		if line[0] == '>':
-			headarr.append(line.rstrip())
+			header = line.rstrip()
+			headarr.append(header)
 			if len(tmp_val) > 0:
 				seqarr.append('\n'.join(tmp_val))
+				
 				if index:
-					fdict[headarr[-1]] = seqarr[-1]
+					fdict[header] = tmp_val
+				tmp_val = []
 		else:
 			tmp_val.append(line.rstrip())
 
 	seqarr.append('\n'.join(tmp_val))
 	if index:
-		fdict[headarr[-1]] = seqarr[-1]
+		fdict[header] = tmp_val
 
 	assert (len(seqarr) == len(headarr))
 
