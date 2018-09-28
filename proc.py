@@ -6,8 +6,6 @@ def proc_json(f, args):
 
 		obj = load(f)
 
-	if 
-
 	qlens = args.get('querylen')
 
 	if (not qlens is None) and  len(qlens) > 0:
