@@ -6,8 +6,6 @@ def proc_json(f, args):
 
 		obj = load(f)
 
-	if 
-
 	qlens = args.get('querylen')
 
 	if (not qlens is None) and  len(qlens) > 0:
@@ -60,6 +58,7 @@ def proc_fasta(f, args):
 	if args('do_index') == 'true':
 
 		parse_fasta(f)
-
+	else:
+		
 	if args.get('action') == "len":
-		return str()
+		return len()

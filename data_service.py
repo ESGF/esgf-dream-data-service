@@ -59,7 +59,8 @@ def feedback_srv(path):
     if arrggs.get('action') != '':
         
         try:
-            jobj = proc_json(resp_file, arrggs)
+
+            jobj = proc_json(file=resp_file, arrggs)
         except BaseException as e:
             return(make_response("Bad Request querying JSON: " + str(e), 400))
 
