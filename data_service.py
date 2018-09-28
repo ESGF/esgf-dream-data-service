@@ -57,18 +57,28 @@ def feedback_srv(path):
 
     # if not json
     if arrggs.get('action') != '':
-        
-        try:
 
-            jobj = proc_json(file=resp_file, arrggs)
-        except BaseException as e:
-            return(make_response("Bad Request querying JSON: " + str(e), 400))
+        if "json" in mime:
+            
+            try:
+                    
+                jobj = proc_json(file=resp_file, arrggs)
 
-        if jobj is None:
-            return(make_response("Bad Request querying JSON", 400))
+            except BaseException as e:
+                return(make_response("Bad Request querying JSON: " + str(e), 400))
 
-        return(make_response(jobj))
- 
+            if jobj is None:
+                return(make_response("Bad Request querying JSON", 400))
+
+            return(make_response(jobj))
+        elif "fasta" in mime:
+
+            resp = proc_fasta(file=resp_file, arrggs)
+            
+            if resp is None:
+                return(make_response("Bad Request querying FASTA", 400))
+            return (make_response(resp))
+
     response = make_response(resp_file.read())
 
     if len(mime) > 0:

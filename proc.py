@@ -1,5 +1,7 @@
 from json import load, dumps
 
+from parse_fasta import parse_fasta
+
 def proc_json(f, args):
 
 	if (type(f) is file):
@@ -55,10 +57,28 @@ def proc_json(f, args):
 
 def proc_fasta(f, args):
 
+	fdict = {}
+	headers = []
+	seq = []
+
 	if args('do_index') == 'true':
 
-		parse_fasta(f)
+		fdict = parse_fasta(f, True)
 	else:
-		
+		headers, seq = parse_fasta(f, False)
+
 	if args.get('action') == "len":
-		return len()
+		return len(headers)
+	if args.get('action') == "get_headers":
+		return dumps(headers)
+	if args.get('action') == "get_seqat":
+		idxs = args.get('index')
+
+		if (not idxs is None) and  len(idxs) > 0:
+			idxi = int(idxs)
+		else:
+			return None			
+		return dumps({ "header": headers[idxi], "sequence": seq[idxi]})
+
+
+	return None

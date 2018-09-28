@@ -43,4 +43,3 @@ def index_data(ka, va):
 	return fdict
 
 
-import sys
