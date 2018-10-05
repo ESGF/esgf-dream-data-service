@@ -8,7 +8,7 @@ import os
 
 from mime_types import get_mime
 from convert_path import convert_path
-from proc import proc_json
+from proc import *
 
 app = Flask(__name__)
 
@@ -56,7 +56,8 @@ def feedback_srv(path):
     # TODO - better error handling passed back
 
     # if not json
-    if arrggs.get('action') != '':
+    action= arrggs.get('action')
+    if ( not (action is None ) ) and len(action) > 0:
 
         if "json" in mime:
             
@@ -76,7 +77,7 @@ def feedback_srv(path):
             resp = proc_fasta(resp_file, arrggs)
 
             if resp is None:
-                return(make_response("Bad Request querying FASTA", 400))
+                return(make_response("Bad Request querying FASTA: '" + action +"'" , 400))
             return (make_response(resp))
 
     response = make_response(resp_file.read())

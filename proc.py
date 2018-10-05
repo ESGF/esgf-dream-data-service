@@ -61,14 +61,14 @@ def proc_fasta(f, args):
 	headers = []
 	seq = []
 
-	if args('do_index') == 'true':
+	if args.get('do_index') == 'true':
 
 		fdict = parse_fasta(f, True)
 	else:
 		headers, seq = parse_fasta(f, False)
 
 	if args.get('action') == "len":
-		return len(headers)
+		return str(len(headers))
 	if args.get('action') == "get_headers":
 		return dumps(headers)
 	if args.get('action') == "get_seqat":
