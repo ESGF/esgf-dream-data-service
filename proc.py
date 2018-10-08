@@ -15,7 +15,7 @@ def proc_json(f, args):
 
 		obj = cache.get(fname)
 
-		if res is None:
+		if obj is None:
 			obj = load(f)
 			cache.set(fname, obj)
 
@@ -80,7 +80,7 @@ def proc_fasta(f, args):
 
 		fname = f.name
 
-		obj = cache.get(fname)
+		res = cache.get(fname)
 
 		if res is None:
 			if args.get('do_index') == 'true':
