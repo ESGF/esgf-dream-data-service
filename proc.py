@@ -78,28 +78,28 @@ def proc_fasta(f, args):
 
 	if (type(f) is file):
 
-			fname = f.name
+		fname = f.name
 
-			obj = cache.get(fname)
+		obj = cache.get(fname)
 
-			if res is None:
-				if args.get('do_index') == 'true':
+		if res is None:
+			if args.get('do_index') == 'true':
 
-					res = parse_fasta(f, True)
-					fdict=res
-				else:
-					res = parse_fasta(f, False)
-					headers, seq = res		
-
-				cache.set(fname, res)
+				res = parse_fasta(f, True)
+				fdict=res
 			else:
-				if args.get('do_index') == 'true':
-					fdict = res
-				else:
-					headers, seq = res		
+				res = parse_fasta(f, False)
+				headers, seq = res		
 
-		else:	
-			raise BaseException("Process-Request-Called-Without-Open-File")
+			cache.set(fname, res)
+		else:
+			if args.get('do_index') == 'true':
+				fdict = res
+			else:
+				headers, seq = res		
+
+	else:	
+		raise BaseException("Process-Request-Called-Without-Open-File")
 
 	if args.get('action') == "len":
 		return str(len(headers))
