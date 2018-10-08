@@ -13,7 +13,6 @@ from proc import *
 app = Flask(__name__)
 
 
-
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def feedback_srv(path):
@@ -58,6 +57,7 @@ def feedback_srv(path):
     # if not json
     action= arrggs.get('action')
     if ( not (action is None ) ) and len(action) > 0:
+
 
         if "json" in mime:
             
