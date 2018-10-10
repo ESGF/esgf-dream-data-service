@@ -15,9 +15,9 @@ git clone this repo to your server.  Fix permissions to ensure the user is runni
     chmod a+r *.py
 
 
-For testing you can run the data service as a standalone application.  You'll need to run:
+For testing you can run the data service as a standalone application.  You'll need to run (ensure you have flask installed in your test python):
 
-$ python dream_data.py
+     $ python dream_data.py
 
 This will run a server on port 5000, and you can test without published datasets
 
